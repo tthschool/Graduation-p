@@ -14,12 +14,17 @@ const getTotalRevenue = async () => {
   const response = await axios.get("http://localhost:8000/api/revenue");
   return response;
 };
+const getAllItems = async () => {
+  const response = await axios.get("http://localhost:8000/getAllItems");
+  return response;
+};
 
 // Example usage
 
 const OpenAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OpenAI_KEY}` });
 export async function callOpenAIwithTools(text) {
+  console.log(text);
   const context = [
     {
       role: "system",
@@ -66,6 +71,13 @@ export async function callOpenAIwithTools(text) {
           description: "return total revenue ? ",
         },
       },
+      {
+        type: "function",
+        function: {
+          name: "getAllItems",
+          description: "return list of items ",
+        },
+      },
     ],
     tool_choice: "auto", //the engine will decide which tool to use
   });
@@ -73,13 +85,15 @@ export async function callOpenAIwithTools(text) {
   const toolCall = response.choices[0].message.tool_calls[0];
   if (willInvokeFuntion) {
     const toolName = toolCall.function.name;
-    if (toolName === "getTotalRevenue") {
+    console.log(toolName);
+    if (toolName === "getAllItems") {
       const rawArg = toolCall.function.arguments;
       const parsedArg = JSON.parse(rawArg);
       let toolResponse;
-      const Response = getTotalRevenue()
+      const Response = getAllItems()
         .then((data) => {
-          toolResponse = data.data;
+          toolResponse = JSON.stringify(data.data);
+         
         })
         .then(() => {
           context.push(response.choices[0].message);
