@@ -43,8 +43,6 @@ const server = http.createServer(async (req, res) => {
       let body ; 
       req.on('data', chunk => {
         body = JSON.parse(chunk);
-        
-      // callOpenAIwithTools(body);
         callOpenAIwithTools(body.query)
         
       });

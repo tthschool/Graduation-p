@@ -19,7 +19,7 @@ const getTotalRevenue = async () => {
 
 const OpenAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OpenAI_KEY}` });
-export async function callOpenAIwithTools() {
+export async function callOpenAIwithTools(text) {
   const context = [
     {
       role: "system",
@@ -28,7 +28,7 @@ export async function callOpenAIwithTools() {
     },
     {
       role: "user",
-      content: " give me the total revenue  ?  ",
+      content: text,
     },
   ];
   const response = await openai.chat.completions.create({
@@ -100,4 +100,3 @@ export async function callOpenAIwithTools() {
   }
 }
 
-callOpenAIwithTools();
