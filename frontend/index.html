@@ -14,15 +14,11 @@
             const query = document.getElementById('query').value;
             const responseElement = document.getElementById('response');
             responseElement.textContent = 'Loading...';
-
-            const response = await fetch('/api/analyze-query', {
+            const response = await fetch('http://localhost:8001/api/test', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query })
             });
-
-            const data = await response.json();
-            responseElement.textContent = data.result;
         }
     </script>
 </body>

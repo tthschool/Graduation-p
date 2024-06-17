@@ -4,8 +4,9 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import { callOpenAIwithTools } from './OpenAi.js';
+import bodyParser from 'body-parser';
 dotenv.config();
-
 // Đường dẫn tuyệt đối tới thư mục frontend
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,9 +26,9 @@ const server = http.createServer(async (req, res) => {
         res.end(data);
       } else if (req.url === '/api/revenue') {
         // Gọi đến backend
-        const response = await axios.get('http://localhost:8080/api/revenue')
+        const response = await axios.get('http://localhost:8000/api/revenue')
         .then((data)=>{
-            console.log(data.data);
+          
         })
         res.end();
       } else {
@@ -37,7 +38,18 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200);
         res.end(data);
       }
-    } else {
+    }
+    else if(req.method === 'POST' && req.url === '/api/test'){
+      let body ; 
+      req.on('data', chunk => {
+        body = JSON.parse(chunk);
+        
+      // callOpenAIwithTools(body);
+        callOpenAIwithTools(body.query)
+        
+      });
+    } 
+    else {
       throw new Error('Method not allowed');
     }
   } catch (error) {
