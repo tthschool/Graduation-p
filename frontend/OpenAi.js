@@ -2,24 +2,12 @@ import { config, parse } from "dotenv";
 import OpenAI from "openai";
 import axios from "axios";
 config();
-function getTimeofday() {
-  return "5:45";
-}
 
-const getOrderStatus = async (orderId) => {
-  const response = await axios.get("http://localhost:8000/api/revenue");
-  return response;
-};
-const getTotalRevenue = async () => {
-  const response = await axios.get("http://localhost:8000/api/revenue");
-  return response;
-};
-const getAllItems = async () => {
-  const response = await axios.get("http://localhost:8000/getAllItems");
+const GetBudget = async () => {
+  const response = await axios.get("http://localhost:8000/GetBudget");
   return response;
 };
 
-// Example usage
 
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
@@ -60,8 +48,8 @@ export async function callOpenAIwithTools(text) {
       {
         type: "function",
         function: {
-          name: "getTimeofday",
-          description: "return time of the day ? ",
+          name: "GetBudget",
+          description: "return budget of this month ",
         },
       },
       {
@@ -86,14 +74,13 @@ export async function callOpenAIwithTools(text) {
   if (willInvokeFuntion) {
     const toolName = toolCall.function.name;
     console.log(toolName);
-    if (toolName === "getAllItems") {
+    if (toolName === "GetBudget") {
       const rawArg = toolCall.function.arguments;
       const parsedArg = JSON.parse(rawArg);
       let toolResponse;
-      const Response = getAllItems()
+      const Response = GetBudget()
         .then((data) => {
           toolResponse = JSON.stringify(data.data);
-         
         })
         .then(() => {
           context.push(response.choices[0].message);

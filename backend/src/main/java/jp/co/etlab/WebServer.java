@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
 import jp.co.etlab.apicontroller.AddItem;
-import jp.co.etlab.apicontroller.GetAllItems;
+import jp.co.etlab.apicontroller.GetBudGet;
 public class WebServer {
     public  void StartServer() throws IOException 
     {   
@@ -13,7 +13,7 @@ public class WebServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
  
         // Create a context for a specific path and set the handler
-        server.createContext("/getAllItems", new GetAllItems());
+        server.createContext("/GetBudget", new GetBudGet());
         server.createContext("/addItem", new AddItem());
         // Start the server
         server.setExecutor(null); // Use the default executor
@@ -21,4 +21,4 @@ public class WebServer {
  
         System.out.println("Server is running on port 8000");
     }
-}
+}   

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.google.gson.Gson;
@@ -42,7 +44,7 @@ public class AddItem implements HttpHandler {
                 exchange.sendResponseHeaders(405, -1); // 405 Method Not Allowed
             }
     //    try {
-    //         Connection con = getConnection();
+    //         Connection con =ConnectionDB.getConnection();
     //         if (con != null) {
     //             String response = "";
     //             String query = "select * from items";
@@ -71,13 +73,4 @@ public class AddItem implements HttpHandler {
     //         e.printStackTrace();
     //     }
     }
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
-                // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                return DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/shop?useSSL=false&serverTimezone=UTC", "root", "Anhhoang94@" );
-                        // "jdbc:sqlserver://localhost\\SQLEXPRESS;" +
-						// "databaseName=shop;IntegratedSecurity=true;TrustServerCertificate=true;");
-                        
-            }
 }
