@@ -1,4 +1,4 @@
-package jp.co.etlab.apicontroller;
+package jp.co.etlab.apicontroller.dbconection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
