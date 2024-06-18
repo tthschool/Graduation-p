@@ -21,8 +21,8 @@ const getAllItems = async () => {
 
 // Example usage
 
-const OpenAI_KEY = process.env.OPENAI_KEY;
-const openai = new OpenAI({ apiKey: `${OpenAI_KEY}` });
+const OPENAI_KEY = process.env.OPENAI_KEY;
+const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
 export async function callOpenAIwithTools(text) {
   console.log(text);
   const context = [
