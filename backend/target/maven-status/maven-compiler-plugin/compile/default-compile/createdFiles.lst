@@ -1,13 +1,14 @@
 jp\co\etlab\apicontroller\GetSaving.class
-jp\co\etlab\apicontroller\AddObPayment.class
 jp\co\etlab\apicontroller\classcontroller\TotalSpend.class
 jp\co\etlab\WebServer.class
 jp\co\etlab\Main.class
+jp\co\etlab\apicontroller\GetTotalExpenses.class
 jp\co\etlab\apicontroller\GetBudGet.class
 jp\co\etlab\apicontroller\AddItem.class
 jp\co\etlab\apicontroller\GetTotalSpend.class
 jp\co\etlab\apicontroller\RequestData.class
 jp\co\etlab\apicontroller\dbconection\ConnectionDB.class
+jp\co\etlab\apicontroller\classcontroller\Expenses.class
 jp\co\etlab\apicontroller\classcontroller\SavingPeriod.class
 jp\co\etlab\apicontroller\classcontroller\BudgetClass.class
 jp\co\etlab\apicontroller\GetallBudget.class

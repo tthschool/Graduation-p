@@ -15,6 +15,10 @@ const getAllBudget = async () => {
   const response = await axios.get("http://localhost:8000/getAllBudget");
   return response;
 };
+const GetTotalExpenses = async () => {
+  const response = await axios.get("http://localhost:8000/GetTotalExpenses");
+  return response;
+};
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
 export async function callOpenAIwithTools(text) {
@@ -46,7 +50,11 @@ export async function callOpenAIwithTools(text) {
         },
         "function": {
           "name": "getTotalSpend",
-          "description": "Returns the money that spent each month."
+          "description": "Returns the money that spent in bill each month."
+        },
+        "function": {
+          "name": "GetTotalExpenses",
+          "description": "Returns the money that spending everyday each month."
         }
       }
     ],
@@ -110,6 +118,30 @@ export async function callOpenAIwithTools(text) {
       const parsedArg = JSON.parse(rawArg);
       let toolResponse;
       const Response = getTotalSpend()
+        .then((data) => {
+          toolResponse = JSON.stringify(data.data);
+        })
+        .then(() => {
+          context.push(response.choices[0].message);
+          context.push({
+            role: "tool",
+            content: toolResponse,
+            tool_call_id: toolCall.id,
+          });
+        })
+        .then(async () => {
+          const secondResponse = await openai.chat.completions.create({
+            model: "gpt-4o",
+            messages: context,
+          });
+          console.log(secondResponse.choices[0].message.content);
+        });
+    }
+    else if (toolName === "GetTotalExpenses") {
+      const rawArg = toolCall.function.arguments;
+      const parsedArg = JSON.parse(rawArg);
+      let toolResponse;
+      const Response = GetTotalExpenses()
         .then((data) => {
           toolResponse = JSON.stringify(data.data);
         })
