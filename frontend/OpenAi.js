@@ -98,7 +98,7 @@ export async function callOpenAIwithTools(text) {
     {
       role: "system",
       content:
-      "you are a very helpful chatbot , just give user infomation that they need  , pay attention in the tools list and make sure you chose correctly function  , dont say anything else",
+      "you are a very helpful chatbot , just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be organized in tabular form, present it in a clear and user-friendly table  , dont say anything else",
     },
     {
       role: "user",
@@ -214,10 +214,7 @@ export async function callOpenAIwithTools(text) {
           console.log(secondResponse.choices[0].message.content);
         });
     }
-    
   }
- 
-  
   else{
     console.log("no");
     console.log(JSON.stringify(response.choices[0].message.content));
