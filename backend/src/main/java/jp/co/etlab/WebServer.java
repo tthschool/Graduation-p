@@ -4,12 +4,12 @@ import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
 
-import jp.co.etlab.apicontroller.AddItem;
-import jp.co.etlab.apicontroller.GetBudGet;
-import jp.co.etlab.apicontroller.GetSaving;
-import jp.co.etlab.apicontroller.ObligatoryPayments;
-import jp.co.etlab.apicontroller.GetTotalSpend;
-import jp.co.etlab.apicontroller.GetallBudget;
+import jp.co.etlab.apicontroller.adddatatodatabase.AddBudGet;
+import jp.co.etlab.apicontroller.getdatafromdb.GetBudGet;
+import jp.co.etlab.apicontroller.getdatafromdb.GetSaving;
+import jp.co.etlab.apicontroller.getdatafromdb.GetTotalSpend;
+import jp.co.etlab.apicontroller.getdatafromdb.GetallBudget;
+import jp.co.etlab.apicontroller.getdatafromdb.ObligatoryPayments;
 public class WebServer {
     public  void StartServer() throws IOException 
     {   
@@ -21,10 +21,9 @@ public class WebServer {
         server.createContext("/getSaving", new GetSaving());
         server.createContext("/getAllBudget", new GetallBudget());
         server.createContext("/getTotalSpend", new GetTotalSpend());
-        //GetTotalExpenses
         server.createContext("/ObligatoryPayments", new ObligatoryPayments());
 
-        server.createContext("/addItem", new AddItem());
+        server.createContext("/addBudget", new AddBudGet());
         // Start the server
         server.setExecutor(null); // Use the default executor
         server.start();

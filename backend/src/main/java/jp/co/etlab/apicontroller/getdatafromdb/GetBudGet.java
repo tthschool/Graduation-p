@@ -1,4 +1,4 @@
-package jp.co.etlab.apicontroller;
+package jp.co.etlab.apicontroller.getdatafromdb;
 
 import java.io.IOException;
 import java.io.OutputStream;
