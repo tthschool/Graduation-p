@@ -19,8 +19,10 @@ const ObligatoryPayments = async () => {
   const response = await axios.get("http://localhost:8000/ObligatoryPayments");
   return response;
 };
-const AddBudget = async () => {
-  const response = await axios.post("http://localhost:8000/addBudget");
+const AddBudget = async (body) => {
+  console.log(body);
+  const response = await axios.post("http://localhost:8000/addBudget", body);
+
   return response;
 };
 const OPENAI_KEY = process.env.OPENAI_KEY;
@@ -242,11 +244,11 @@ export async function callOpenAIwithTools(text) {
           });
           console.log(secondResponse.choices[0].message.content);
         });
-    }else if (toolName === "AddBudget") {
+    } else if (toolName === "AddBudget") {
       const rawArg = toolCall.function.arguments;
       const parsedArg = JSON.parse(rawArg);
       let toolResponse;
-      const Response = AddBudget()
+      const Response = AddBudget(parsedArg)
         .then((data) => {
           toolResponse = JSON.stringify(data.data);
         })
