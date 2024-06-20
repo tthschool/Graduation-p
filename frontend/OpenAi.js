@@ -2,10 +2,10 @@ import { config, parse } from "dotenv";
 import OpenAI from "openai";
 import { tools } from "./Tools.js";
 import axios from "axios";
-import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments  } from "./FunctionCall.js";
+import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget } from "./FunctionCall.js";
 config();
-const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments]
-const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments"]
+const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments ,AddBudget]
+const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments" ,"AddBudget"]
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
 export async function callOpenAIwithTools(text) {
@@ -34,21 +34,7 @@ export async function callOpenAIwithTools(text) {
     let toolResponse = null;
     let indexoffuntion  = null;
     let Response = null;
-    if (toolName === "getSaving") {
-      // const rawArg = toolCall.function.arguments;
-      // const parsedArg = JSON.parse(rawArg);
-      indexoffuntion = tools_listsub.indexOf("getSaving")
-    }
-    else if (toolName === "getAllBudget") {
-      indexoffuntion = tools_listsub.indexOf("getAllBudget")
-    }
-    else if (toolName === "getTotalSpend") {
-      indexoffuntion = tools_listsub.indexOf("getTotalSpend")
-    }
-    else if (toolName === "ObligatoryPayments") {
-      indexoffuntion = tools_listsub.indexOf("ObligatoryPayments")
-    }
-
+    indexoffuntion = (tools_listsub.indexOf(toolName));
     Response = tools_list[indexoffuntion]()
     .then((data) => {
           toolResponse = JSON.stringify(data.data);
