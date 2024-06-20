@@ -70,7 +70,7 @@ const tools = [
     function: {
       name: "getAllBudget",
       description:
-        "Returns the budget data for all months from the database, current month when current_month field is true",
+        "Returns the budget data for all months from the database, current month when current_month field is true , and you can based on that data to provide user sum of individual moths ",
       parameters: {
         type: "object",
         properties: {
@@ -128,7 +128,6 @@ const tools = [
 ];
 
 export async function callOpenAIwithTools(text) {
-  console.log(text);
   const context = [
     {
       role: "system",

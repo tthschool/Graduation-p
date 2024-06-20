@@ -35,7 +35,6 @@ const server = http.createServer(async (req, res) => {
         body = JSON.parse(chunk);
         callOpenAIwithTools(body.query)
           setTimeout(() => {
-           
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end( dataresponse);
           }, 5000);
