@@ -37,12 +37,10 @@ public class GetBudGet implements HttpHandler {
                     String period =rs.getString("period");
                     double total_amount = rs.getDouble("total_amount");
                     Date created_date = rs.getDate("created_at");
-                    Date End_date = rs.getDate("End_date");
                     Boolean valid = rs.getBoolean("current_month");
                     
                     String createdDateString = dateFormat.format(created_date);
-                    String endDateString = dateFormat.format(End_date);
-                    budget = new BudgetClass(id, period, total_amount, createdDateString, endDateString ,valid);
+                    budget = new BudgetClass(id, period, total_amount, createdDateString ,valid);
                 }
                 pstmt.close();
                 con.close();

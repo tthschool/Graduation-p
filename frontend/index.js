@@ -5,15 +5,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { callOpenAIwithTools } from './OpenAi.js';
-import bodyParser from 'body-parser';
 dotenv.config();
-// Đường dẫn tuyệt đối tới thư mục frontend
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT
-console.log(PORT);
-
-console.log(__dirname);
+let dataresponse = "";
 const server = http.createServer(async (req, res) => {
   let filePath;
   try {
@@ -24,14 +20,8 @@ const server = http.createServer(async (req, res) => {
         res.setHeader('Content-Type', 'text/html');
         res.writeHead(200);
         res.end(data);
-      } else if (req.url === '/api/revenue') {
-        // Gọi đến backend
-        const response = await axios.get('http://localhost:8000/api/revenue')
-        .then((data)=>{
-          
-        })
-        res.end();
-      } else {
+      } 
+       else {
         filePath = path.join(__dirname, 'src', req.url);
         const data = await fs.readFile(filePath);
         res.setHeader('Content-Type', 'text/html');
@@ -44,8 +34,23 @@ const server = http.createServer(async (req, res) => {
       req.on('data', chunk => {
         body = JSON.parse(chunk);
         callOpenAIwithTools(body.query)
-        
+          setTimeout(() => {
+           
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end( dataresponse);
+          }, 5000);
       });
+      
+    } 
+    else if(req.method === 'POST' && req.url === '/api/response'){
+      let body = ""; 
+      req.on('data', chunk => {
+        body += chunk ;
+      });
+      req.on('end', () => {
+        dataresponse = body
+        console.log(dataresponse);
+    });
     } 
     else {
       throw new Error('Method not allowed');
@@ -58,6 +63,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('500 Internal Server Error');
     }
+    
   }
 });
 

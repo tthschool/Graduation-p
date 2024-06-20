@@ -34,7 +34,6 @@ public class AddBudGet implements HttpHandler {
                 System.out.println(requestData.Getamount());
                 String period  = requestData.getPeriod();
                 double amount = requestData.Getamount();
-                String End_date= requestData.getEnd_date();
                 try {
                         Connection con =ConnectionDB.getConnection();
                         String query = null ; 
@@ -46,11 +45,10 @@ public class AddBudGet implements HttpHandler {
                             pstmt = con.prepareStatement(query);
                             rs = pstmt.executeUpdate();
                             pstmt.close();
-                            query  = "insert into Budget (period , total_amount , End_date) values (? , ? , ? ) ";
+                            query  = "insert into Budget (period , total_amount ) values (? , ?  ) ";
                             pstmt = con.prepareStatement(query);
                             pstmt.setString(1, period);
                             pstmt.setDouble(2, amount);
-                            pstmt.setString(3, End_date);
                             rs = pstmt.executeUpdate(); 
                             if (rs != 0) {
                                    

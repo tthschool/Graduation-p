@@ -1,8 +1,8 @@
 import { config, parse } from "dotenv";
 import OpenAI from "openai";
 import axios from "axios";
-config();
 
+config();
 const GetSavings = async () => {
   const response = await axios.get("http://localhost:8000/getSaving");
   return response;
@@ -11,12 +11,13 @@ const getTotalSpend = async () => {
   const response = await axios.get("http://localhost:8000/getTotalSpend");
   return response;
 };
-const getAllBudget = async () => {
-  const response = await axios.get("http://localhost:8000/getAllBudget");
-  return response;
-};
+
 const ObligatoryPayments = async () => {
   const response = await axios.get("http://localhost:8000/ObligatoryPayments");
+  return response;
+};
+const getAllBudget = async () => {
+  const response = await axios.get("http://localhost:8000/getAllBudget");
   return response;
 };
 const AddBudget = async (body) => {
@@ -24,6 +25,10 @@ const AddBudget = async (body) => {
   const response = await axios.post("http://localhost:8000/addBudget", body);
 
   return response;
+};
+
+const senddata = async (body) => {
+
 };
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
@@ -101,7 +106,7 @@ const tools = [
     function: {
       name: "AddBudget",
       description:
-        "Adds a new budget entry for a specified month. This function requires parameters for the period, amount, and end date of the budget. The period should be formatted as 'YYYY-MM' (e.g., '2025-01'), amount is the total budget for the month, and enddate is the last day of the specified month.",
+        "Adds a new budget entry for a specified month. This function requires parameters for the period, amount, and end date of the budget. The period should be formatted as 'YYYY-MM' (e.g., '2025-01'), amount is the total budget for the month",
       parameters: {
         type: "object",
         properties: {
@@ -115,13 +120,8 @@ const tools = [
             description:
               "The total budget amount to be added for the specified period.",
           },
-          enddate: {
-            type: "string",
-            description:
-              "The last day of the budget period, formatted as 'YYYY-MM-DD'.",
-          },
         },
-        required: ["period", "amount", "enddate"],
+        required: ["period", "amount"],
       },
     },
   },
@@ -133,7 +133,7 @@ export async function callOpenAIwithTools(text) {
     {
       role: "system",
       content:
-        "you are a very helpful chatbot , just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be organized in tabular form, present it in a clear and user-friendly table  , dont say anything else",
+        "you are a very helpful chatbot ,my name is hoang ,  just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand  ,  dont say anything else",
     },
     {
       role: "user",
@@ -173,7 +173,7 @@ export async function callOpenAIwithTools(text) {
             model: "gpt-4o",
             messages: context,
           });
-          console.log(secondResponse.choices[0].message.content);
+          axios.post("http://localhost:8001/api/response", secondResponse.choices[0].message.content);
         });
     } else if (toolName === "GetSavings") {
       const rawArg = toolCall.function.arguments;
@@ -218,8 +218,11 @@ export async function callOpenAIwithTools(text) {
           const secondResponse = await openai.chat.completions.create({
             model: "gpt-4o",
             messages: context,
-          });
+          })
+        
           console.log(secondResponse.choices[0].message.content);
+     ;
+
         });
     } else if (toolName === "ObligatoryPayments") {
       const rawArg = toolCall.function.arguments;
@@ -242,7 +245,7 @@ export async function callOpenAIwithTools(text) {
             model: "gpt-4o",
             messages: context,
           });
-          console.log(secondResponse.choices[0].message.content);
+          console.log(secondResponse.choices[0].message.content)
         });
     } else if (toolName === "AddBudget") {
       const rawArg = toolCall.function.arguments;
@@ -269,7 +272,6 @@ export async function callOpenAIwithTools(text) {
         });
     }
   } else {
-    console.log("no");
     console.log(JSON.stringify(response.choices[0].message.content));
   }
 }
