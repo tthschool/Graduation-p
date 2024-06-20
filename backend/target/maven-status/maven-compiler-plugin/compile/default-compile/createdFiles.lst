@@ -1,4 +1,6 @@
+jp\co\etlab\apicontroller\adddatatodatabase\AddObligatoryPayments.class
 jp\co\etlab\apicontroller\adddatatodatabase\AddBudGet.class
+jp\co\etlab\apicontroller\classcontroller\AddObligatoryPayments.class
 jp\co\etlab\apicontroller\getdatafromdb\GetallBudget.class
 jp\co\etlab\apicontroller\getdatafromdb\ObligatoryPayments.class
 jp\co\etlab\apicontroller\classcontroller\TotalSpend.class

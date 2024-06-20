@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +15,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import jp.co.etlab.apicontroller.classcontroller.BudgetClass;
 import jp.co.etlab.apicontroller.classcontroller.Expenses;
-import jp.co.etlab.apicontroller.classcontroller.SavingPeriod;
-import jp.co.etlab.apicontroller.classcontroller.TotalSpend;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
 public class GetTotalSpend implements HttpHandler {
