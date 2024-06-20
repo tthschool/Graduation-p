@@ -38,9 +38,9 @@ public class GetallBudget implements HttpHandler {
                     String period =rs.getString("period");
                     double total_amount = rs.getDouble("total_amount");
                     Date created_date = rs.getDate("created_at");
-                    Boolean valid = rs.getBoolean("current_month");
+                    Boolean current_month = rs.getBoolean("current_month");
                     String createdDateString = dateFormat.format(created_date);
-                    budget = new BudgetClass(id, period, total_amount, createdDateString, valid);
+                    budget = new BudgetClass(id, period, total_amount, createdDateString, current_month);
                     allbudget.add(budget);
                 }
                 pstmt.close();

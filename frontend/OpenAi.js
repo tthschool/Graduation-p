@@ -1,6 +1,6 @@
 import { config, parse } from "dotenv";
 import OpenAI from "openai";
-import { tools } from "./Tools.js";
+import { tools , content  } from "./Tools.js";
 import axios from "axios";
 import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget } from "./FunctionCall.js";
 config();
@@ -12,8 +12,8 @@ export async function callOpenAIwithTools(text) {
   const context = [
     {
       role: "system",
-      content:
-        "you are a very helpful chatbot ,my name is hoang ,  just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand  ,  dont say anything else",
+      content: content
+        
     },
     {
       role: "user",
