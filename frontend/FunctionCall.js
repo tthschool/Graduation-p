@@ -20,3 +20,7 @@ export const AddBudget = async (body) => {
   const response = await axios.post("http://localhost:8000/addBudget", body);
   return response;
 };
+export const AddObligatoryPayments = async (body) => {
+  const response = await axios.post("http://localhost:8000/AddObligatoryPayments", body);
+  return response;
+};

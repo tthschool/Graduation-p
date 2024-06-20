@@ -68,29 +68,32 @@ export const tools = [
     },
   },
   {
-    type: "function",
-    function: {
-      name: "AddBudget",
-      description:
-        "Adds a new budget entry for a specified month. This function requires parameters for the period, amount, and end date of the budget. The period should be formatted as 'YYYY-MM' (e.g., '2025-01'), amount is the total budget for the month",
-      parameters: {
-        type: "object",
-        properties: {
-          period: {
-            type: "string",
-            description:
-              "The month and year for which the budget is being set, formatted as 'YYYY-MM'.",
+    "type": "function",
+    "function": {
+      "name": "AddObligatoryPayments",
+      "description": "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "payment_date": {
+            "type": "string",
+            "description": "The specific date for the payment, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025."
           },
-          amount: {
-            type: "number",
-            description:
-              "The total budget amount to be added for the specified period.",
+          "amount": {
+            "type": "number",
+            "description": "The amount of the payment in dollars. Should be a positive double."
           },
+          "describe": {
+            "type": "string",
+            "description": "A description of the payment type, such as 'rent', 'insurance', 'electric bill', 'annuity bill', or 'gas bill'."
+          }
         },
-        required: ["period", "amount"],
+        "required": ["payment_date", "amount", "describe"]
       },
-    },
-  },
+      
+    }
+  }
+  
 ];
 
 export  const content = "you are a very helpful chatbot ,my name is hoang ,  just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand  ,  dont say anything else"
