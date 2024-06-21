@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+class CallApi {
+    constructor(path, body) {
+      this.path = path;
+      this.body = body;
+    }
+
+    async makerequest() {
+        const url = `http://localhost:8000/${this.path}`;
+        try {
+            const response = await fetch(url, {
+                method: 'get', // Hoặc 'GET', tùy thuộc vào API
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            const data = await response.json();
+            return data; // Trả về dữ liệu nhận được từ server
+        } catch (error) {
+            console.error('Error making the request:', error);
+            return undefined; // Trả về undefined nếu có lỗi
+        }
+    }
+}
+
+const a = new CallApi("hello", { key: "value" }); // Thêm body cho ví dụ
+a.makerequest().then(data => console.log(data)).catch(error => console.error(error));
+
+    </script>
+</body>
+</html>

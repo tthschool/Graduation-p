@@ -24,16 +24,16 @@ public class GetSaving implements HttpHandler {
             if (con != null) {
                 System.out.println("connected");
                 String response = "";
-                String query = "Select b.period ,  s.amount , s.saving_date   from Budget as b INNER JOIN Savings as s  ON b.id = s.budget_id ;";
+                String query = "Select * from  Savings ";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
                 SavingPeriod saving = null ;
                 List<SavingPeriod> savings = new ArrayList<>();
-
                 while (rs.next()) {
-                    String period =rs.getString("period");
-                    double total_amount = rs.getDouble("amount");
-                    saving = new SavingPeriod(period, total_amount);
+                    String description =rs.getString("description");
+                    double amount = rs.getDouble("amount");
+                    String saving_date = rs.getString("saving_date");
+                    saving = new SavingPeriod(description,saving_date, amount);
                     savings.add(saving);
                 }
                 pstmt.close();

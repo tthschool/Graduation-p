@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
 import jp.co.etlab.apicontroller.adddatatodatabase.AddBudGet;
+import jp.co.etlab.apicontroller.adddatatodatabase.AddExpenses;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddObligatoryPayments;
 import jp.co.etlab.apicontroller.getdatafromdb.GetBudGet;
 import jp.co.etlab.apicontroller.getdatafromdb.GetSaving;
@@ -23,8 +24,9 @@ public class WebServer {
         server.createContext("/getAllBudget", new GetallBudget());
         server.createContext("/getTotalSpend", new GetTotalSpend());
         server.createContext("/ObligatoryPayments", new ObligatoryPayments());
-        server.createContext("/AddObligatoryPayments", new AddObligatoryPayments());
 
+        server.createContext("/AddObligatoryPayments", new AddObligatoryPayments());
+        server.createContext("/addExpenses", new AddExpenses());
         server.createContext("/addBudget", new AddBudGet());
         // Start the server
         server.setExecutor(null); // Use the default executor

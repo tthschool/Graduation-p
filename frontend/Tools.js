@@ -36,7 +36,7 @@ export const tools = [
     function: {
       name: "getAllBudget",
       description:
-        "Returns the budget data for all months from the database, current month when current_month field is true , and you can based on that data to provide user sum of individual moths ,and the The official currency is the Japanese yen , just give user useful infomation  ,  dont have to show column valid " ,
+        "Returns the budget data for all months from the database, current month when current_month field is true , and you can based on that data to provide user sum of individual moths ,and the The official currency is the Japanese yen , just give user useful infomation  ,  dont have to show column valid ",
       parameters: {
         type: "object",
         properties: {
@@ -68,32 +68,64 @@ export const tools = [
     },
   },
   {
-    "type": "function",
-    "function": {
-      "name": "AddObligatoryPayments",
-      "description": "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "payment_date": {
-            "type": "string",
-            "description": "The specific date for the payment, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025."
+    type: "function",
+    function: {
+      name: "AddObligatoryPayments",
+      description:
+        "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",
+      parameters: {
+        type: "object",
+        properties: {
+          payment_date: {
+            type: "string",
+            description:
+              "The specific date for the payment, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025.",
           },
-          "amount": {
-            "type": "number",
-            "description": "The amount of the payment in dollars. Should be a positive double."
+          amount: {
+            type: "number",
+            description:
+              "The amount of the payment in japanese yen. Should be a positive double.",
           },
-          "describe": {
-            "type": "string",
-            "description": "A description of the payment type, such as 'rent', 'insurance', 'electric bill', 'annuity bill', or 'gas bill'."
-          }
+          describe: {
+            type: "string",
+            description:
+              "A description of the payment type, such as 'rent', 'insurance', 'electric bill', 'annuity bill', or 'gas bill'.",
+          },
         },
-        "required": ["payment_date", "amount", "describe"]
+        required: ["payment_date", "amount", "describe"],
       },
-      
-    }
-  }
-  
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "AddExpenses",
+      description:
+        "Adds a new Expenses entry for a specified date. This function records daily spending on non-mandatory items such as groceries, entertainment, dining out, and other personal expenses. These are discretionary expenses that vary from day to day.",
+      parameters: {
+        type: "object",
+        properties: {
+          payment_date: {
+            type: "string",
+            description:
+              "The specific date for the expense, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025.",
+          },
+          amount: {
+            type: "number",
+            description:
+              "The amount of the expense in Japanese yen. Should be a positive double.",
+          },
+          describe: {
+            type: "string",
+            description:
+              "A description of the expense type, such as 'groceries', 'dining out', 'entertainment', or 'personal care'.",
+          },
+        },
+        required: ["payment_date", "amount", "describe"],
+      },
+    },
+  },
 ];
 
-export  const content = "you are a very helpful chatbot ,my name is hoang ,  just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand  ,  dont say anything else"
+export const content =
+  "you are a very helpful chatbot ,my name is hoang ,  just give user infomation that they need  ,always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand  ,  dont say anything else";

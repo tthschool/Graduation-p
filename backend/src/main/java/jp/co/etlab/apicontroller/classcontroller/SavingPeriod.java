@@ -1,10 +1,12 @@
 package jp.co.etlab.apicontroller.classcontroller;
 
 public class SavingPeriod {
-    String period ;
+    String description ;
     double amount ;
-    public  SavingPeriod(String period , double amount){
-        this.period = period ;
+    String saving_date ;
+    public  SavingPeriod(String desciption ,String saving_date , double amount){
+        this.description = desciption ;
+        this.saving_date = saving_date;
         this.amount = amount;
     }
 }

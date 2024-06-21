@@ -15,7 +15,7 @@ import com.sun.net.httpserver.HttpHandler;
 import jp.co.etlab.apicontroller.RequestData;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
-public class AddBudGet implements HttpHandler {
+public class AddExpenses implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
             if ("POST".equals(exchange.getRequestMethod())) {
                 // Đọc dữ liệu từ yêu cầu POST
@@ -28,25 +28,20 @@ public class AddBudGet implements HttpHandler {
                 String requestBody = sb.toString();
                 Gson gson = new Gson();
                 RequestData requestData = gson.fromJson(requestBody, RequestData.class);
-                System.out.println(requestData.getPeriod());
-                System.out.println(requestData.Getamount());
-                String period  = requestData.getPeriod();
+                String payment_date  = requestData.Getpayment_date();
                 double amount = requestData.Getamount();
+                String Describle = requestData.Describe();
                 try {
                         Connection con =ConnectionDB.getConnection();
                         String query = null ; 
                         PreparedStatement pstmt = null ; 
                         int rs = 0 ;
                         if (con != null) {
-                            //set current month to next month
-                            query = "update  Budget set current_month= 0 where current_month = 1 ;";
+                            query  = "insert into Expenses ( description , amount , date   ) values (? , ?  , ? ) ";
                             pstmt = con.prepareStatement(query);
-                            rs = pstmt.executeUpdate();
-                            pstmt.close();
-                            query  = "insert into Budget (period , total_amount ) values (? , ?  ) ";
-                            pstmt = con.prepareStatement(query);
-                            pstmt.setString(1, period);
+                            pstmt.setString(1, Describle);
                             pstmt.setDouble(2, amount);
+                            pstmt.setString(3, payment_date);
                             rs = pstmt.executeUpdate(); 
                             if (rs != 0) {
                                    

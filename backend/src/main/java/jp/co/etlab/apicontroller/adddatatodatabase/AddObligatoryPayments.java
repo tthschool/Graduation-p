@@ -30,7 +30,7 @@ public class AddObligatoryPayments implements HttpHandler {
                 RequestData requestData = gson.fromJson(requestBody, RequestData.class);
                 String payment_date  = requestData.Getpayment_date();
                 double amount = requestData.Getamount();
-                String Describle = requestData.Describle();
+                String Describle = requestData.Describe();
                 try {
                         Connection con =ConnectionDB.getConnection();
                         String query = null ; 

@@ -4,7 +4,7 @@ public class RequestData {
     private String period;
     private double amount;
     private String payment_date ;
-    private String describle  ;
+    private String describe  ;
     private String start_date ;
     private String End_date ;
 
@@ -18,8 +18,8 @@ public class RequestData {
     public String Getpayment_date() {
         return payment_date;
     }
-    public String Describle(){
-        return describle;
+    public String Describe(){
+        return describe;
     }
     public String getStartDate(){
         return start_date;
@@ -36,8 +36,8 @@ public class RequestData {
     public void setPayment_date(String payment_date){
         this.payment_date = payment_date;
     }
-    public void setDiscrible(String discrible){
-        this.describle = discrible ; 
+    public void Setdescribe(String describe){
+        this.describe = describe ; 
     }
     public void setStartDate(String startdate){
         this.start_date = startdate;

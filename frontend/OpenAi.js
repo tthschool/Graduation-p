@@ -2,10 +2,10 @@ import { config, parse } from "dotenv";
 import OpenAI from "openai";
 import { tools , content  } from "./Tools.js";
 import axios from "axios";
-import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget ,AddObligatoryPayments } from "./FunctionCall.js";
+import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget ,AddObligatoryPayments , AddExpenses } from "./FunctionCall.js";
 config();
-const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments ,AddBudget,AddObligatoryPayments]
-const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments" ,"AddBudget" , "AddObligatoryPayments"]
+const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments ,AddBudget,AddObligatoryPayments , AddExpenses]
+const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments" ,"AddBudget" , "AddObligatoryPayments" , "AddExpenses"]
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
 export async function callOpenAIwithTools(text) {
@@ -31,11 +31,12 @@ export async function callOpenAIwithTools(text) {
     console.log(JSON.stringify(response.choices[0].message.tool_calls[0]));
     const toolCall = response.choices[0].message.tool_calls[0];
     const toolName = toolCall.function.name;
+    const body = toolCall.function.arguments;
     let toolResponse = null;
     let indexoffuntion  = null;
     let Response = null;
     indexoffuntion = (tools_listsub.indexOf(toolName));
-    Response = tools_list[indexoffuntion]()
+    Response = tools_list[indexoffuntion](body)
     .then((data) => {
           toolResponse = JSON.stringify(data.data);
         })
@@ -58,6 +59,6 @@ export async function callOpenAIwithTools(text) {
           );
         });
   } else {
-    axios.post("http://localhost:8001/api/response", "sorry i cant answer");
+    axios.post("http://localhost:8001/api/response", "sorry i can not  answer that question , can i do something else for you ??");
   }
 }

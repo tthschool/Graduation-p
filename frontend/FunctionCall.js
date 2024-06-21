@@ -24,3 +24,9 @@ export const AddObligatoryPayments = async (body) => {
   const response = await axios.post("http://localhost:8000/AddObligatoryPayments", body);
   return response;
 };
+export const AddExpenses = async (body) => {
+  console.log(body);
+  const response = await axios.post("http://localhost:8000/addExpenses", body);
+  return response;
+};
+
