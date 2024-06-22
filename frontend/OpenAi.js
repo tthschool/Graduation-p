@@ -2,10 +2,10 @@ import { config, parse } from "dotenv";
 import OpenAI from "openai";
 import { tools , content  } from "./Tools.js";
 import axios from "axios";
-import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget ,AddObligatoryPayments , AddExpenses } from "./FunctionCall.js";
+import { getSaving , getAllBudget , getTotalSpend ,ObligatoryPayments ,AddBudget ,AddObligatoryPayments , AddExpenses , GetStockPrice } from "./FunctionCall.js";
 config();
-const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments ,AddBudget,AddObligatoryPayments , AddExpenses]
-const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments" ,"AddBudget" , "AddObligatoryPayments" , "AddExpenses"]
+const tools_list  = [getSaving  , getAllBudget ,getTotalSpend ,ObligatoryPayments ,AddBudget,AddObligatoryPayments , AddExpenses ,GetStockPrice]
+const tools_listsub  = ["getSaving"  , "getAllBudget" ,"getTotalSpend" ,"ObligatoryPayments" ,"AddBudget" , "AddObligatoryPayments" , "AddExpenses" , "GetStockPrice"]
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
 export async function callOpenAIwithTools(text) {

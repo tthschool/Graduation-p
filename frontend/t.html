@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function makeres(){
+            const request =await fetch("https://api.twelvedata.com/time_series?apikey=6a55905e11af436d9137152754d87844&interval=1day&symbol=AAPL&format=JSON")
+            const data = await request.json()
+            console.log(data.meta.symbol);
+            console.log(data.values);
+            
+        }
+       makeres()
+
+    </script>
+</body>
+</html>

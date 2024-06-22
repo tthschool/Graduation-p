@@ -70,6 +70,26 @@ export const tools = [
   {
     type: "function",
     function: {
+      name: "GetStockPrice",
+      description:
+        "Retrieve the stock price for a specific ticker symbol over the past month.",
+      parameters: {
+        type: "object",
+        properties: {
+          ticker_symbol: {
+            type: "string",
+            description:
+              "The ticker symbol of the stock, such as AAPL for Apple.",
+          },
+        },
+        required: ["ticker_symbol"],
+      },
+    },
+  },
+
+  {
+    type: "function",
+    function: {
       name: "AddObligatoryPayments",
       description:
         "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",

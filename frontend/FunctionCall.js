@@ -30,3 +30,14 @@ export const AddExpenses = async (body) => {
   return response;
 };
 
+export const GetStockPrice = async (ticker_symbol_string)=>{
+  const symbol = JSON.parse(ticker_symbol_string);
+  const ticker_symbol = symbol.ticker_symbol
+  try {
+    const response = await axios.get(`https://api.twelvedata.com/time_series?apikey=6a55905e11af436d9137152754d87844&interval=1day&symbol=${ticker_symbol}&format=JSON`)
+    return response
+  } catch (error) {
+    return "sorry ticker symbol was not found"
+    
+  }
+}
