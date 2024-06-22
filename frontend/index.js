@@ -1,7 +1,7 @@
 import http from 'http';
 import axios from 'axios';
 import fs from 'fs/promises';
-import path from 'path';
+import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { callOpenAIwithTools } from './OpenAi.js';
@@ -30,16 +30,17 @@ const server = http.createServer(async (req, res) => {
       }
     }
     else if(req.method === 'POST' && req.url === '/api/test'){
-      let body ; 
+      let body = "" ; 
       req.on('data', chunk => {
-        body = JSON.parse(chunk);
-        callOpenAIwithTools(body.query)
-          setTimeout(() => {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end( dataresponse);
-          }, 5000);
+        body += (chunk);
       });
-      
+      req.on ('end' , async ()=>{
+        body = JSON.parse(body)
+        console.log(body.query)
+        const response = await  callOpenAIwithTools(body.query)
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end( response);
+      })
     } 
     else if(req.method === 'POST' && req.url === '/api/response'){
       let body = ""; 
@@ -65,7 +66,6 @@ const server = http.createServer(async (req, res) => {
     
   }
 });
-
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
