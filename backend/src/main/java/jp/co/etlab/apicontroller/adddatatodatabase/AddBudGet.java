@@ -28,8 +28,6 @@ public class AddBudGet implements HttpHandler {
                 String requestBody = sb.toString();
                 Gson gson = new Gson();
                 RequestData requestData = gson.fromJson(requestBody, RequestData.class);
-                System.out.println(requestData.getPeriod());
-                System.out.println(requestData.Getamount());
                 String period  = requestData.getPeriod();
                 double amount = requestData.Getamount();
                 try {

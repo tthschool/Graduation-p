@@ -57,31 +57,36 @@ export async function callOpenAIwithTools(text) {
   });
   const willInvokeFuntion = response.choices[0].finish_reason === "tool_calls";
   if (willInvokeFuntion) {
-    console.log(JSON.stringify(response.choices[0].message.tool_calls[0]));
-    const toolCall = response.choices[0].message.tool_calls[0];
-    const toolName = toolCall.function.name;
-    const body = toolCall.function.arguments;
-    let toolResponse = null;
-    let indexoffuntion = null;
-    let Response = null;
-    indexoffuntion = tools_listsub.indexOf(toolName);
-    Response = await tools_list[indexoffuntion](body);
-    toolResponse = JSON.stringify(Response.data);
+    const toolCalls = response.choices[0].message.tool_calls;
     context.push(response.choices[0].message);
-    context.push({
-      role: "tool",
-      content: toolResponse,
-      tool_call_id: toolCall.id,
-    });
+    for (const toolCall of toolCalls) {
+      const toolName = toolCall.function.name;
+      const body = toolCall.function.arguments;
+      let toolResponse = null;
+      let indexoffuntion = null;
+      let Response = null;
+      indexoffuntion = tools_listsub.indexOf(toolName);
+      Response = await tools_list[indexoffuntion](body);
+      toolResponse = (JSON.stringify(Response.data));
+      context.push({
+        role: "tool",
+        content: toolResponse,
+        name :toolName,
+        tool_call_id: toolCall.id,
+      });
+    } 
     const secondResponse = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: context,
     });
     return secondResponse.choices[0].message.content;
-  } else {
+   
+  } 
+  else {
     axios.post(
       "http://localhost:8001/api/response",
-      "sorry i can not  answer that question , can i do something else for you ??"
+      "sorry i can not  answer that question , there are  something else i can do  for you ??"
     );
   }
 }
+

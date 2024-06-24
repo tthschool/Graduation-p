@@ -23,7 +23,6 @@ public class GetallBudget implements HttpHandler {
        try {
             Connection con = ConnectionDB.getConnection();
             if (con != null) {
-                System.out.println("connected--");
                 String response = "";
                 String query = "select * from Budget";
                 PreparedStatement pstmt = con.prepareStatement(query);
@@ -31,7 +30,6 @@ public class GetallBudget implements HttpHandler {
                 KakeboClass budget = null ;
             
                 List<KakeboClass> allbudget = new ArrayList<>();
-                System.out.println("2nd");
                 while (rs.next()) {
                     String period =rs.getString("period");
                     double total_amount = rs.getDouble("total_amount");
@@ -44,7 +42,6 @@ public class GetallBudget implements HttpHandler {
                 }
                 pstmt.close();
                 con.close();
-                System.out.println("3nd");
                 Gson gson = new Gson();
                 response =gson.toJson(allbudget);
                 System.out.println(response);

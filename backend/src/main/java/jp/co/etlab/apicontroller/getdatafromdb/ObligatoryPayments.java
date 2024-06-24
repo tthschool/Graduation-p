@@ -24,7 +24,6 @@ public class ObligatoryPayments implements HttpHandler {
        try {
             Connection con = ConnectionDB.getConnection();
             if (con != null) {
-                System.out.println("connected");
                 String response = "";
                 String query = "select description , amount , payment_date from ObligatoryPayments ";
                 PreparedStatement pstmt = con.prepareStatement(query);
