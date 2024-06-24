@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import jp.co.etlab.apicontroller.classcontroller.Expenses;
+import jp.co.etlab.apicontroller.classcontroller.KakeboClass;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
 public class GetTotalSpend implements HttpHandler {
@@ -27,14 +27,17 @@ public class GetTotalSpend implements HttpHandler {
                 String query = "select * from Expenses ";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
-                List<Expenses> totalExpenses = new ArrayList<>();
+                List<KakeboClass> totalExpenses = new ArrayList<>();
                 // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Expenses totalSpend  = null ;
+                KakeboClass totalSpend  = null ;
                 while (rs.next()) {
                     String spent_date = rs.getString("date");
                     double total_amount = rs.getDouble("amount");
                     String description = rs.getString("description");
-                    totalSpend = new Expenses(description, total_amount  , spent_date);
+                    totalSpend = new KakeboClass();
+                    totalSpend.SetPayment_date(spent_date);
+                    totalSpend.SetTotal_amount(total_amount);
+                    totalSpend.SetDescription(description);
                     totalExpenses.add(totalSpend);
                 }
                 pstmt.close();

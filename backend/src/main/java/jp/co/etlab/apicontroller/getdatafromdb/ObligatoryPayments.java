@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import jp.co.etlab.apicontroller.classcontroller.TotalSpend;
+import jp.co.etlab.apicontroller.classcontroller.KakeboClass;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
 public class ObligatoryPayments implements HttpHandler {
@@ -29,13 +29,16 @@ public class ObligatoryPayments implements HttpHandler {
                 String query = "select description , amount , payment_date from ObligatoryPayments ";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
-                List<TotalSpend> totalSpends = new ArrayList<>();
-                TotalSpend totalSpend  = null ;
+                List<KakeboClass> totalSpends = new ArrayList<>();
+                KakeboClass totalSpend  = null ;
                 while (rs.next()) {
                     String payment_date =rs.getString("payment_date");
                     double amount = rs.getDouble("amount");
                     String description = rs.getString("description");
-                    totalSpend = new TotalSpend(payment_date, description  , amount);
+                    totalSpend = new KakeboClass();
+                    totalSpend.SetPayment_date(payment_date);
+                    totalSpend.SetTotal_amount(amount);
+                    totalSpend.SetDescription(description);
                     totalSpends.add(totalSpend);
                 }
                 pstmt.close();

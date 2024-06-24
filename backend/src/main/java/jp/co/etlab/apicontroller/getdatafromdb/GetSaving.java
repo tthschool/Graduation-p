@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import jp.co.etlab.apicontroller.classcontroller.SavingPeriod;
+import jp.co.etlab.apicontroller.classcontroller.KakeboClass;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
 public class GetSaving implements HttpHandler {
@@ -27,13 +27,16 @@ public class GetSaving implements HttpHandler {
                 String query = "Select * from  Savings ";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
-                SavingPeriod saving = null ;
-                List<SavingPeriod> savings = new ArrayList<>();
+                KakeboClass saving = null ;
+                List<KakeboClass> savings = new ArrayList<>();
                 while (rs.next()) {
                     String description =rs.getString("description");
                     double amount = rs.getDouble("amount");
                     String saving_date = rs.getString("saving_date");
-                    saving = new SavingPeriod(description,saving_date, amount);
+                    saving = new KakeboClass();
+                    saving.SetDescription(description);
+                    saving.Setamount(amount);
+                    saving.SetSavingDate(saving_date);
                     savings.add(saving);
                 }
                 pstmt.close();

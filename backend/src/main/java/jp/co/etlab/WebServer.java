@@ -8,7 +8,6 @@ import jp.co.etlab.apicontroller.adddatatodatabase.AddBudGet;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddExpenses;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddObligatoryPayments;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddSaving;
-import jp.co.etlab.apicontroller.getdatafromdb.GetBudGet;
 import jp.co.etlab.apicontroller.getdatafromdb.GetSaving;
 import jp.co.etlab.apicontroller.getdatafromdb.GetTotalSpend;
 import jp.co.etlab.apicontroller.getdatafromdb.GetallBudget;
@@ -20,7 +19,6 @@ public class WebServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
  
         // Create a context for a specific path and set the handler
-        server.createContext("/GetBudget", new GetBudGet());
         server.createContext("/getSaving", new GetSaving());
         server.createContext("/getAllBudget", new GetallBudget());
         server.createContext("/getTotalSpend", new GetTotalSpend());
