@@ -145,6 +145,35 @@ export const tools = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "AddSaving",
+      description:
+        "This function adds a new saving record to the user's financial database. It takes a date, an amount, and a description to record details about the saving event.",
+      parameters: {
+        type: "object",
+        properties: {
+          period: {
+            type: "string",
+            description:
+              "The specific date for the saving, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025.",
+          },
+          amount: {
+            type: "number",
+            description:
+              "The amount of the saving in Japanese yen. Should be a positive number, represented as a double.",
+          },
+          describe: {
+            type: "string",
+            description:
+              "A brief description of the saving event, providing context or additional details about the nature of the saving.",
+          },
+        },
+        required: ["period", "amount", "describe"],
+      },
+    },
+  },
 ];
 
 export const content =

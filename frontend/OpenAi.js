@@ -11,6 +11,7 @@ import {
   AddObligatoryPayments,
   AddExpenses,
   GetStockPrice,
+  AddSaving
 } from "./FunctionCall.js";
 config();
 const tools_list = [
@@ -22,6 +23,7 @@ const tools_list = [
   AddObligatoryPayments,
   AddExpenses,
   GetStockPrice,
+  AddSaving
 ];
 const tools_listsub = [
   "getSaving",
@@ -32,6 +34,7 @@ const tools_listsub = [
   "AddObligatoryPayments",
   "AddExpenses",
   "GetStockPrice",
+  "AddSaving",
 ];
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });

@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpServer;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddBudGet;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddExpenses;
 import jp.co.etlab.apicontroller.adddatatodatabase.AddObligatoryPayments;
+import jp.co.etlab.apicontroller.adddatatodatabase.AddSaving;
 import jp.co.etlab.apicontroller.getdatafromdb.GetBudGet;
 import jp.co.etlab.apicontroller.getdatafromdb.GetSaving;
 import jp.co.etlab.apicontroller.getdatafromdb.GetTotalSpend;
@@ -28,6 +29,7 @@ public class WebServer {
         server.createContext("/AddObligatoryPayments", new AddObligatoryPayments());
         server.createContext("/addExpenses", new AddExpenses());
         server.createContext("/addBudget", new AddBudGet());
+        server.createContext("/AddSaving", new AddSaving());
         // Start the server
         server.setExecutor(null); // Use the default executor
         server.start();

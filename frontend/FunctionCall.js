@@ -29,6 +29,11 @@ export const AddExpenses = async (body) => {
   const response = await axios.post("http://localhost:8000/addExpenses", body);
   return response;
 };
+export const AddSaving = async (body) => {
+  console.log(body);
+  const response = await axios.post("http://localhost:8000/AddSaving", body);
+  return response;
+};
 
 export const GetStockPrice = async (ticker_symbol_string)=>{
   const symbol = JSON.parse(ticker_symbol_string);
