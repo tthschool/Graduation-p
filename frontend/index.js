@@ -40,8 +40,8 @@ const server = http.createServer(async (req, res) => {
         console.log(body.query)
         const response = await  callOpenAIwithTools(body.query)
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        const markedres = marked(response)
-        res.end( markedres);
+        // const markedres = marked(response)
+        res.end( response);
       })
     } 
     else {

@@ -12,10 +12,7 @@ export const ObligatoryPayments = async () => {
   const response = await axios.get("http://localhost:8000/ObligatoryPayments");
   return response;
 };
-export const GetIncome = async () => {
-  const response = await axios.get("http://localhost:8000/getAllBudget");
-  return response;
-};
+
 export const AddBudget = async (body) => {
   const response = await axios.post("http://localhost:8000/addBudget", body);
   return response;
@@ -66,4 +63,7 @@ export const GetMyProfit =async () =>{
    
 }
 
-
+export const remaining_amount = async (body) => {
+  const response = await axios.post("http://localhost:8000/GetRemainMoney", body);
+  return response;
+};

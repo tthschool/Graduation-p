@@ -82,44 +82,7 @@ export const tools = [
       },
     },
   },
-  {
-    type: "function",
-    function: {
-      name: "getAllBudget",
-      description:
-        "Returns the budget data for all months or only the current month from the database, depending on the 'period' parameter. Data is returned in Japanese yen and excludes the 'valid' column. Sum of individual months can be calculated based on the data provided.",
-      parameters: {
-        type: "object",
-        properties: {
-          period: {
-            type: "string",
-            description:
-              "Specify 'current' to retrieve data for the current month only. Leave blank or omit for all months.",
-          },
-        },
-      },
-      returns: {
-        type: "array",
-        description:
-          "An array of objects, each containing the period and the corresponding budget amount for that period.",
-        items: {
-          type: "object",
-          properties: {
-            period: {
-              type: "string",
-              description:
-                "The period for which the budget data is provided, formatted as 'YYYY-MM'.",
-            },
-            amount: {
-              type: "number",
-              description:
-                "The budget amount for the specified period, expressed in Japanese yen.",
-            },
-          },
-        },
-      },
-    },
-  },
+ 
 
   {
     type: "function",
@@ -244,8 +207,26 @@ export const tools = [
       },
     },
   },
-  
+  {
+    type: "function",
+    function: {
+      name: "remaining_amount",
+      description:
+        "Function to calculate the remaining amount after deducting expenses, obligatory payments, and savings from the budget.",
+      parameters: {
+        type: "object",
+        properties: {
+          budget_id: {
+            type: "integer",
+            description:
+              "ID of the budget for which to calculate the remaining amount",
+          },
+        },
+        required: ["budget_id"],
+      },
+    },
+  },
 ];
 
 export const content =
-  "you are a very helpful chatbot, my name is Hoang. Just give user information that they need, always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand, display it in a table format with lines separating rows and columns for easier understanding. Don't say anything else.";
+  "you are a very helpful chatbot, my name is Hoang. Just give user information that they need, always ensure the correct function is selected from the tools list, provide concise information, and for data that can be easy to understand, display for easier understanding. Don't say anything else.";

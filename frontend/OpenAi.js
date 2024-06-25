@@ -4,7 +4,6 @@ import { tools, content } from "./Tools.js";
 import axios from "axios";
 import {
   getSaving,
-  GetIncome,
   getTotalSpend,
   ObligatoryPayments,
   AddBudget,
@@ -13,12 +12,12 @@ import {
   GetStockPrice,
   AddSaving,
   GetNews,
-  GetMyProfit
+  GetMyProfit,
+  remaining_amount
 } from "./FunctionCall.js";
 config();
 const tools_list = [
   getSaving,
-  GetIncome,
   getTotalSpend,
   ObligatoryPayments,
   AddBudget,
@@ -27,11 +26,11 @@ const tools_list = [
   GetStockPrice,
   AddSaving,
   GetNews,
-  GetMyProfit
+  GetMyProfit,
+  remaining_amount
 ];
 const tools_listsub = [
   "getSaving",
-  "GetIncome",
   "getTotalSpend",
   "ObligatoryPayments",
   "AddBudget",
@@ -40,7 +39,8 @@ const tools_listsub = [
   "GetStockPrice",
   "AddSaving",
   "GetNews",
-  "GetMyProfit"
+  "GetMyProfit",
+  "remaining_amount"
 ];
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
@@ -74,7 +74,7 @@ export async function callOpenAIwithTools(text) {
       let Response = null;
       indexoffuntion = tools_listsub.indexOf(toolName);
       Response = await tools_list[indexoffuntion](body);
-      // console.log(Response);
+      console.log(Response);
       toolResponse = (JSON.stringify(Response.data));
       context.push({
         role: "tool",

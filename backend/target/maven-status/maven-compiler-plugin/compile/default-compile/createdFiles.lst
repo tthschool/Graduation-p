@@ -3,12 +3,12 @@ jp/co/etlab/apicontroller/classcontroller/KakeboClass.class
 jp/co/etlab/WebServer.class
 jp/co/etlab/apicontroller/getdatafromdb/GetTotalSpend.class
 jp/co/etlab/apicontroller/getdatafromdb/GetStock.class
-jp/co/etlab/apicontroller/getdatafromdb/GetallBudget.class
 jp/co/etlab/apicontroller/RequestData.class
 jp/co/etlab/apicontroller/dbconection/ConnectionDB.class
 jp/co/etlab/apicontroller/getdatafromdb/GetSaving.class
 jp/co/etlab/apicontroller/adddatatodatabase/AddSaving.class
 jp/co/etlab/apicontroller/adddatatodatabase/AddExpenses.class
 jp/co/etlab/Main.class
+jp/co/etlab/apicontroller/getdatafromdb/GetRemainMoney.class
 jp/co/etlab/apicontroller/adddatatodatabase/AddObligatoryPayments.class
 jp/co/etlab/apicontroller/adddatatodatabase/AddBudGet.class

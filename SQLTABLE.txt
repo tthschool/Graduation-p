@@ -1,0 +1,64 @@
+-- Tạo bảng Budget
+CREATE TABLE Budget (
+    budget_id INT AUTO_INCREMENT PRIMARY KEY,
+    month CHAR(7) NOT NULL, -- Định dạng YYYY-MM
+    amount DECIMAL(10, 2) NOT NULL
+);
+
+-- Tạo bảng Spend
+CREATE TABLE Spend (
+    spend_id INT AUTO_INCREMENT PRIMARY KEY,
+    amount DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    description TEXT,
+    budget_id INT,
+    FOREIGN KEY (budget_id) REFERENCES Budget(budget_id)
+);
+
+-- Tạo bảng Saving
+CREATE TABLE Saving (
+    saving_id INT AUTO_INCREMENT PRIMARY KEY,
+    amount DECIMAL(10, 2) NOT NULL,
+    target VARCHAR(255),
+    date DATE NOT NULL,
+    budget_id INT,
+    FOREIGN KEY (budget_id) REFERENCES Budget(budget_id)
+);
+INSERT INTO Budget (month, amount) VALUES
+('2024-01', 10000.00),
+('2024-02', 12000.00),
+('2024-03', 11000.00);
+
+
+INSERT INTO Spend (amount, category, date, description, budget_id) VALUES
+(2500.00, 'Food', '2024-01-10', 'Groceries', 1),
+(1500.00, 'Transport', '2024-01-15', 'Gas', 1),
+(3000.00, 'Entertainment', '2024-01-20', 'Concert', 1),
+(4000.00, 'Rent', '2024-02-01', 'Monthly rent', 2),
+(2000.00, 'Utilities', '2024-02-10', 'Electricity & Water', 2),
+(2500.00, 'Food', '2024-03-05', 'Groceries', 3),
+(1500.00, 'Transport', '2024-03-10', 'Gas', 3);
+
+
+
+INSERT INTO Saving (amount, target, date, budget_id) VALUES
+(2000.00, 'Emergency Fund', '2024-01-25', 1),
+(3000.00, 'Vacation', '2024-02-15', 2),
+(1500.00, 'New Car', '2024-03-20', 3);
+
+
+SELECT 
+    b.month,
+    b.amount AS budget_amount,
+    COALESCE(SUM(s.amount), 0) AS total_spend,
+    COALESCE(SUM(sa.amount), 0) AS total_saving,
+    b.amount - COALESCE(SUM(s.amount), 0) - COALESCE(SUM(sa.amount), 0) AS remaining_amount
+FROM 
+    Budget b
+LEFT JOIN 
+    Spend s ON b.budget_id = s.budget_id
+LEFT JOIN 
+    Saving sa ON b.budget_id = sa.budget_id
+GROUP BY 
+    b.month, b.amount;
