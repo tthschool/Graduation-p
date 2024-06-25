@@ -51,27 +51,19 @@ export const GetNews = async (country)=>{
   return response;
 }
 
-export const GetMyStocks = async ()=>{
-  const response = await axios.post("http://localhost:8000/GetStock");
-  return response;
-}
 
-
-const getGainLost =async () =>{
-   const mystocks_aw = await GetMyStocks()
+export const GetMyProfit =async () =>{
+   const mystocks_aw = await  axios.post("http://localhost:8000/GetStock");
    const mystocks = mystocks_aw.data;
-   let jsonresponse  = [mystocks]
-   for (const stock  of mystocks) {
+   for (let stock  of mystocks) {
       const response = await axios.get(`https://api.twelvedata.com/time_series?apikey=6a55905e11af436d9137152754d87844&interval=1day&symbol=${stock.TickerSymbol}&format=JSON`)
-      const latestData = response.data.values[response.data.values.length - 1];
-                
-      // Pushing the ticker symbol and latest data to the response array
-      jsonresponse.push({   TickerSymbol: stock.TickerSymbol, latestData: latestData });
+      const latestData = response.data.values[0].datetime;
+      const latestDatadate = response.data.values[0].close
+      stock.latestdate = latestData;
+      stock.latestprice = latestDatadate
    }
-   return jsonresponse;
+  return {data :mystocks};
    
 }
 
 
-const rs = await getGainLost();
-console.log(rs);

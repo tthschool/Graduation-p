@@ -158,6 +158,14 @@ export const tools = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "GetMyProfit",
+      description:
+        "Returns my profit, including purchase price, quantity, current price, and other relevant information needed to calculate the profit or loss from the investment.",
+    },
+  },
 
   {
     type: "function",
@@ -236,44 +244,7 @@ export const tools = [
       },
     },
   },
-  {
-    type: "function",
-    function: {
-      name: "GetMyStocks",
-      description:
-        "Retrieves a list of stocks that have been purchased from the database, excluding any records where the quantity is zero. Each stock's price is formatted to two decimal places.",
-      parameters: {
-        type: "object",
-        properties: {
-          TickerSymbol: {
-            type: "string",
-            description:
-              "The ticker symbol of the stock, such as AAPL for Apple.",
-          },
-          PurchasePrice: {
-            type: "number",
-            description:
-              "The price at which the stock was purchased, formatted to two decimal places.",
-          },
-          PurchaseDate: {
-            type: "string",
-            description:
-              "The date on which the stock was purchased, formatted as YYYY-MM-DD.",
-          },
-          Quantity: {
-            type: "number",
-            description:
-              "The number of shares purchased. Records with a quantity of zero are excluded from the results.",
-          },
-          Note: {
-            type: "string",
-            description:
-              "Optional notes about the stock, such as dividend payments or other remarks. If no notes are present, this field may be omitted.",
-          },
-        },
-      },
-    },
-  },
+  
 ];
 
 export const content =

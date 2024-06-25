@@ -13,7 +13,7 @@ import {
   GetStockPrice,
   AddSaving,
   GetNews,
-  GetMyStocks
+  GetMyProfit
 } from "./FunctionCall.js";
 config();
 const tools_list = [
@@ -27,7 +27,7 @@ const tools_list = [
   GetStockPrice,
   AddSaving,
   GetNews,
-  GetMyStocks
+  GetMyProfit
 ];
 const tools_listsub = [
   "getSaving",
@@ -40,7 +40,7 @@ const tools_listsub = [
   "GetStockPrice",
   "AddSaving",
   "GetNews",
-  "GetMyStocks"
+  "GetMyProfit"
 ];
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
@@ -74,6 +74,7 @@ export async function callOpenAIwithTools(text) {
       let Response = null;
       indexoffuntion = tools_listsub.indexOf(toolName);
       Response = await tools_list[indexoffuntion](body);
+      // console.log(Response);
       toolResponse = (JSON.stringify(Response.data));
       context.push({
         role: "tool",
