@@ -4,30 +4,34 @@ import { tools, content } from "./Tools.js";
 import axios from "axios";
 import {
   getSaving,
-  getAllBudget,
+  GetIncome,
   getTotalSpend,
   ObligatoryPayments,
   AddBudget,
   AddObligatoryPayments,
   AddExpenses,
   GetStockPrice,
-  AddSaving
+  AddSaving,
+  GetNews,
+  GetMyStocks
 } from "./FunctionCall.js";
 config();
 const tools_list = [
   getSaving,
-  getAllBudget,
+  GetIncome,
   getTotalSpend,
   ObligatoryPayments,
   AddBudget,
   AddObligatoryPayments,
   AddExpenses,
   GetStockPrice,
-  AddSaving
+  AddSaving,
+  GetNews,
+  GetMyStocks
 ];
 const tools_listsub = [
   "getSaving",
-  "getAllBudget",
+  "GetIncome",
   "getTotalSpend",
   "ObligatoryPayments",
   "AddBudget",
@@ -35,6 +39,8 @@ const tools_listsub = [
   "AddExpenses",
   "GetStockPrice",
   "AddSaving",
+  "GetNews",
+  "GetMyStocks"
 ];
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
@@ -53,7 +59,7 @@ export async function callOpenAIwithTools(text) {
     model: "gpt-4o",
     messages: context,
     tools: tools,
-    tool_choice: "auto", //the engine will decide which tool to use
+    tool_choice: 'auto', //the engine will decide which tool to use
   });
   const willInvokeFuntion = response.choices[0].finish_reason === "tool_calls";
   if (willInvokeFuntion) {
@@ -61,6 +67,7 @@ export async function callOpenAIwithTools(text) {
     context.push(response.choices[0].message);
     for (const toolCall of toolCalls) {
       const toolName = toolCall.function.name;
+      console.log(toolName);
       const body = toolCall.function.arguments;
       let toolResponse = null;
       let indexoffuntion = null;
@@ -79,14 +86,11 @@ export async function callOpenAIwithTools(text) {
       model: "gpt-4o",
       messages: context,
     });
+    console.log(secondResponse.choices[0].message.content);
     return secondResponse.choices[0].message.content;
-   
   } 
   else {
-    axios.post(
-      "http://localhost:8001/api/response",
-      "sorry i can not  answer that question , there are  something else i can do  for you ??"
-    );
+    return "something wrong , try again "
   }
 }
 

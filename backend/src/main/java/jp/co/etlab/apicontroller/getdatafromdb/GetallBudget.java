@@ -32,11 +32,11 @@ public class GetallBudget implements HttpHandler {
                 List<KakeboClass> allbudget = new ArrayList<>();
                 while (rs.next()) {
                     String period =rs.getString("period");
-                    double total_amount = rs.getDouble("total_amount");
+                    double total_amount = rs.getDouble("amount");
                     Boolean current_month = rs.getBoolean("current_month");
                     budget = new KakeboClass();
                     budget.SetPeriod(period);
-                    budget.SetTotal_amount(total_amount);
+                    budget.Setamount(total_amount);
                     budget.SetCurrentMonth(current_month);
                     allbudget.add(budget);
                 }

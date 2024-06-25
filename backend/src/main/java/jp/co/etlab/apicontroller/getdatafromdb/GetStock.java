@@ -16,7 +16,7 @@ import com.sun.net.httpserver.HttpHandler;
 import jp.co.etlab.apicontroller.classcontroller.KakeboClass;
 import jp.co.etlab.apicontroller.dbconection.ConnectionDB;
 
-public class GetTotalSpend implements HttpHandler {
+public class GetStock implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         
        try {
@@ -24,26 +24,28 @@ public class GetTotalSpend implements HttpHandler {
             if (con != null) {
                 System.out.println("connected");
                 String response = "";
-                String query = "select * from Expenses ";
+                String query = "select * from Stocks ";
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
-                List<KakeboClass> totalExpenses = new ArrayList<>();
+                List<KakeboClass> Stocks = new ArrayList<>();
                 // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                KakeboClass totalSpend  = null ;
+                KakeboClass Stock  = null ;
                 while (rs.next()) {
-                    String spent_date = rs.getString("date");
-                    double total_amount = rs.getDouble("amount");
-                    String description = rs.getString("description");
-                    totalSpend = new KakeboClass();
-                    totalSpend.SetPayment_date(spent_date);
-                    totalSpend.Setamount(total_amount);
-                    totalSpend.SetDescription(description);
-                    totalExpenses.add(totalSpend);
+                    String ticker_symbol = rs.getString("TickerSymbol");
+                    String purchaseDate = rs.getString("PurchaseDate");
+                    double price = rs.getDouble("PurchasePrice");
+                    int quantity = rs.getInt("Quantity");
+                    Stock = new KakeboClass();
+                    Stock.setPurchaseDate(purchaseDate);
+                    Stock.setTickerSymbol(ticker_symbol);
+                    Stock.setPurchasePrice(price);
+                    Stock.setQuantity(quantity);
+                    Stocks.add(Stock);
                 }
                 pstmt.close();
                 con.close();
                 Gson gson = new Gson();
-                response =gson.toJson(totalExpenses);
+                response =gson.toJson(Stocks);
                 exchange.getResponseHeaders().add("Content-Type", "application/json");
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();

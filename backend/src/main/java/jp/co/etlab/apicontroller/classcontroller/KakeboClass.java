@@ -6,10 +6,13 @@ public class KakeboClass {
     String description;
     String payment_date ; 
     String period ;
-    double total_amount;
     String Start_date ;
     Boolean current_month ;
     String saving_date ;
+    String TickerSymbol ; 
+    double PurchasePrice ; 
+    String PurchaseDate ;
+    int Quantity ; 
     public void Setamount(Double amount){
         this.amount = amount;
     }
@@ -22,9 +25,6 @@ public class KakeboClass {
     public void SetPeriod(String period){
         this.period = period ;
     }
-    public void SetTotal_amount(Double total_amount){
-        this.total_amount = total_amount ;
-    }
     public void SetStartdate(String Start_date){
         this.Start_date = Start_date ; 
     }
@@ -34,6 +34,18 @@ public class KakeboClass {
     public void SetSavingDate(String savingdate){
         this.saving_date = savingdate;
     }
+    public void setTickerSymbol(String tickerSymbol){
+        this.TickerSymbol = tickerSymbol ;
+   }
+   public void setPurchasePrice(double PurchasePrice){
+       this.PurchasePrice = PurchasePrice;
+   }
+   public void setPurchaseDate(String purchaseDate){
+       this.PurchaseDate = purchaseDate;
+   }
+   public void setQuantity(int Quantity){
+       this.Quantity = Quantity;
+   }
 }
 
 

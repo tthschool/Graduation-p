@@ -1,5 +1,6 @@
 package jp.co.etlab.apicontroller;
 
+
 public class RequestData {
     private String period;
     private double amount;
@@ -7,8 +8,23 @@ public class RequestData {
     private String describe  ;
     private String start_date ;
     private String End_date ;
-
+    private String TickerSymbol ; 
+    private double PurchasePrice ; 
+    private String PurchaseDate ;
+    private int Quantity ; 
     // Getters and setters
+    public String GetTickerSymbol(){
+        return TickerSymbol;
+    }
+    public double getPurchasePrice(){
+        return PurchasePrice;
+    }
+    public String getPurchaseDate(){
+        return PurchaseDate;
+    }
+    public int getQuantity(){
+        return Quantity;
+    }
     public String getPeriod() {
         return period;
     }
@@ -44,5 +60,17 @@ public class RequestData {
     }
     public void setEnd_date(String end_date){
         this.End_date = end_date ; 
+    }
+    public void setTickerSymbol(String tickerSymbol){
+         this.TickerSymbol = tickerSymbol ;
+    }
+    public void setPurchasePrice(double PurchasePrice){
+        this.PurchasePrice = PurchasePrice;
+    }
+    public void setPurchaseDate(String purchaseDate){
+        this.PurchaseDate = purchaseDate;
+    }
+    public void setQuantity(int Quantity){
+        this.Quantity = Quantity;
     }
 }

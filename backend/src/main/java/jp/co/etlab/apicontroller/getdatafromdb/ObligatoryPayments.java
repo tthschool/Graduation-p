@@ -36,7 +36,7 @@ public class ObligatoryPayments implements HttpHandler {
                     String description = rs.getString("description");
                     totalSpend = new KakeboClass();
                     totalSpend.SetPayment_date(payment_date);
-                    totalSpend.SetTotal_amount(amount);
+                    totalSpend.Setamount(amount);
                     totalSpend.SetDescription(description);
                     totalSpends.add(totalSpend);
                 }

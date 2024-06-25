@@ -35,13 +35,13 @@ public class AddBudGet implements HttpHandler {
                         String query = null ; 
                         PreparedStatement pstmt = null ; 
                         int rs = 0 ;
-                        if (con != null) {
+                        if (con != null) {  
                             //set current month to next month
                             query = "update  Budget set current_month= 0 where current_month = 1 ;";
                             pstmt = con.prepareStatement(query);
                             rs = pstmt.executeUpdate();
                             pstmt.close();
-                            query  = "insert into Budget (period , total_amount ) values (? , ?  ) ";
+                            query  = "insert into Budget (period , amount ) values (? , ?  ) ";
                             pstmt = con.prepareStatement(query);
                             pstmt.setString(1, period);
                             pstmt.setDouble(2, amount);

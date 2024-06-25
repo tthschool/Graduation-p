@@ -5,6 +5,7 @@ import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { callOpenAIwithTools } from './OpenAi.js';
+import { marked } from 'marked';
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,18 +40,9 @@ const server = http.createServer(async (req, res) => {
         console.log(body.query)
         const response = await  callOpenAIwithTools(body.query)
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end( response);
+        const markedres = marked(response)
+        res.end( markedres);
       })
-    } 
-    else if(req.method === 'POST' && req.url === '/api/response'){
-      let body = ""; 
-      req.on('data', chunk => {
-        body += chunk ;
-      });
-      req.on('end', () => {
-        dataresponse = body
-        console.log(dataresponse);
-    });
     } 
     else {
       throw new Error('Method not allowed');
