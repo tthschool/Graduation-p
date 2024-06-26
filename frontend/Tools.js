@@ -167,6 +167,31 @@ export const tools = [
   {
     type: "function",
     function: {
+      name: "AddBudget",
+      description:
+        "Adds a new budget money entry for a specified month. ",
+      parameters: {
+        type: "object",
+        properties: {
+          amount: {
+            type: "number",
+            description:
+              "The amount of the payment in japanese yen. Should be a positive double.",
+          },
+         
+          period: {
+            type: "string",
+            description:
+              "The specific month for the payment, formatted as 'YYYY-MM'. For example, '2025-01' represents the January 2025.",
+          },
+        },
+        required: [ "amount" , "period"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "AddObligatoryPayments",
       description:
         "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",

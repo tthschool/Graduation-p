@@ -36,11 +36,6 @@ public class AddBudGet implements HttpHandler {
                         PreparedStatement pstmt = null ; 
                         int rs = 0 ;
                         if (con != null) {  
-                            //set current month to next month
-                            query = "update  Budget set current_month= 0 where current_month = 1 ;";
-                            pstmt = con.prepareStatement(query);
-                            rs = pstmt.executeUpdate();
-                            pstmt.close();
                             query  = "insert into Budget (period , amount ) values (? , ?  ) ";
                             pstmt = con.prepareStatement(query);
                             pstmt.setString(1, period);
@@ -55,10 +50,26 @@ public class AddBudGet implements HttpHandler {
                                     OutputStream os = exchange.getResponseBody();
                                     os.write(response.getBytes(StandardCharsets.UTF_8));
                                     os.close();
-                            }    
+                            }   
+                            else{
+                                String response = "budget already exits  , PLEASE CHECK AGAIN !! ";
+                                    // Thiết lập mã trạng thái và độ dài của nội dung trả về
+                                    exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+                                    // Lấy OutputStream để ghi nội dung trả về
+                                    OutputStream os = exchange.getResponseBody();
+                                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                                    os.close();
+                            } 
                         }
                 } catch (ClassNotFoundException | SQLException e) {
-                    e.printStackTrace();
+                    String response = "budget already exits  , PLEASE CHECK AGAIN !! ";
+                    // Thiết lập mã trạng thái và độ dài của nội dung trả về
+                    exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);
+                    // Lấy OutputStream để ghi nội dung trả về
+                    OutputStream os = exchange.getResponseBody();
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                    os.close();
+                    
                 }
         } else {
             exchange.sendResponseHeaders(405, -1); // 405 Method Not Allowed

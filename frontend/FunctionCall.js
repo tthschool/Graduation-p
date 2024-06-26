@@ -73,14 +73,3 @@ export const remaining_amount = async (body) => {
   );
   return response;
 };
-
-// let body = {
-//   saving_date: "2024-12-06",
-//   amount: 12345,
-//   describe: "for trip",
-//   period: "2024-12",
-// };
-
-// const x = await AddSaving(body);
-
-// console.log(x);
