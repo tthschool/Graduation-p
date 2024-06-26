@@ -133,6 +133,40 @@ export const tools = [
   {
     type: "function",
     function: {
+      name: "AddSaving",
+      description:
+        "Adds a new saving money entry for a specified date. ",
+      parameters: {
+        type: "object",
+        properties: {
+          saving_date: {
+            type: "string",
+            description:
+              "The specific date for the saving, formatted as 'YYYY-MM-dd'. For example, '2025-01-01' represents the 1st of January 2025.",
+          },
+          amount: {
+            type: "number",
+            description:
+              "The amount of the payment in japanese yen. Should be a positive double.",
+          },
+          describe: {
+            type: "string",
+            description:
+              "A description of the saving type",
+          },
+          period: {
+            type: "string",
+            description:
+              "The specific month for the payment, formatted as 'YYYY-MM'. For example, '2025-01' represents the January 2025.",
+          },
+        },
+        required: ["saving_date", "amount", "describe" , "period"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "AddObligatoryPayments",
       description:
         "Adds a new ObligatoryPayments entry for a specified date. This function records payments such as rent, insurance, and utility bills.",

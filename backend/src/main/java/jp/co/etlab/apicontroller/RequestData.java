@@ -7,6 +7,7 @@ public class RequestData {
     private String payment_date ;
     private String describe  ;
     private String start_date ;
+    private String saving_date ;
     private String End_date ;
     private String TickerSymbol ; 
     private double PurchasePrice ; 
@@ -36,6 +37,9 @@ public class RequestData {
     }
     public String Describe(){
         return describe;
+    }
+    public String Getsavingdate(){
+        return saving_date;
     }
     public String getStartDate(){
         return start_date;
@@ -72,5 +76,8 @@ public class RequestData {
     }
     public void setQuantity(int Quantity){
         this.Quantity = Quantity;
+    }
+    public void Setsavingdate(String saving_date){
+        this.saving_date =  saving_date;
     }
 }
