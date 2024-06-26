@@ -13,6 +13,7 @@ const PORT = process.env.PORT
 let dataresponse = "";
 const server = http.createServer(async (req, res) => {
   let filePath;
+  let fileimg ; 
   try {
     if (req.method === 'GET') {
       if (req.url === '/') {
@@ -21,13 +22,16 @@ const server = http.createServer(async (req, res) => {
         res.setHeader('Content-Type', 'text/html');
         res.writeHead(200);
         res.end(data);
-      } 
-       else {
-        filePath = path.join(__dirname, 'src', req.url);
-        const data = await fs.readFile(filePath);
-        res.setHeader('Content-Type', 'text/html');
-        res.writeHead(200);
-        res.end(data);
+      }
+      else{
+        fileimg = path.join(__dirname, req.url);
+        const data = await fs.readFile(fileimg);
+        let ext = path.extname(fileimg).toLowerCase();
+        let contentType = 'text/plain';
+        if (ext === '.jpg' || ext === '.jpeg') contentType = 'image/jpeg';
+        res.writeHead(200, { 'Content-Type': contentType });
+        res.end(data)
+
       }
     }
     else if(req.method === 'POST' && req.url === '/api/test'){
@@ -44,6 +48,7 @@ const server = http.createServer(async (req, res) => {
         res.end( response);
       })
     } 
+
     else {
       throw new Error('Method not allowed');
     }
