@@ -183,8 +183,13 @@ export const tools = [
             description:
               "A description of the expense type, such as 'groceries', 'dining out', 'entertainment', or 'personal care'.",
           },
+          period: {
+            type: "string",
+            description:
+              "The specific month for the expense, formatted as 'YYYY-MM'. For example, '2025-01' represents the January 2025.",
+          },
         },
-        required: ["payment_date", "amount", "describe"],
+        required: ["payment_date", "amount", "describe" ,"period"],
       },
     },
   },

@@ -69,6 +69,7 @@ export async function callOpenAIwithTools(text) {
       const toolName = toolCall.function.name;
       console.log(toolName);
       const body = toolCall.function.arguments;
+      console.log(body);
       let toolResponse = null;
       let indexoffuntion = null;
       let Response = null;
