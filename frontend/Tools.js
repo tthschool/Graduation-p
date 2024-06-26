@@ -154,8 +154,13 @@ export const tools = [
             description:
               "A description of the payment type, such as 'rent', 'insurance', 'electric bill', 'annuity bill', or 'gas bill'.",
           },
+          period: {
+            type: "string",
+            description:
+              "The specific month for the payment, formatted as 'YYYY-MM'. For example, '2025-01' represents the January 2025.",
+          },
         },
-        required: ["payment_date", "amount", "describe"],
+        required: ["payment_date", "amount", "describe" , "period"],
       },
     },
   },
