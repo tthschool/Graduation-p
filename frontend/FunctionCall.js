@@ -47,8 +47,6 @@ export const GetNews = async (country)=>{
   const response  = await axios.get(`https://newsapi.org/v2/top-headlines?country=${countryname.country_code}&category=business&apiKey=26ecb3d51db748089fd69d3167a45938`);
   return response;
 }
-
-
 export const GetMyProfit =async () =>{
    const mystocks_aw = await  axios.post("http://localhost:8000/GetStock");
    const mystocks = mystocks_aw.data;
@@ -60,9 +58,7 @@ export const GetMyProfit =async () =>{
       stock.latestprice = latestDatadate
    }
   return {data :mystocks};
-   
 }
-
 export const remaining_amount = async (body) => {
   const response = await axios.post("http://localhost:8000/GetRemainMoney", body);
   return response;

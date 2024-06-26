@@ -24,28 +24,57 @@ public class GetRemainMoney implements HttpHandler {
             if (con != null) {
                 System.out.println("connected");
                 String response = "";
-                String query = "SELECT \n" + //
-                                        "    b.id AS budget_id,\n" + //
-                                        "    b.period,\n" + //
-                                        "    b.amount AS budget_amount,\n" + //
-                                        "    COALESCE(SUM(e.amount), 0) AS total_expenses,\n" + //
-                                        "    COALESCE(SUM(o.amount), 0) AS total_obligatory_payments,\n" + //
-                                        "    COALESCE(SUM(s.amount), 0) AS total_savings,\n" + //
-                                        "    b.amount - \n" + //
-                                        "        COALESCE(SUM(e.amount), 0) - \n" + //
-                                        "        COALESCE(SUM(o.amount), 0) - \n" + //
-                                        "        COALESCE(SUM(s.amount), 0) AS remaining_amount\n" + //
-                                        "FROM \n" + //
-                                        "    Budget b\n" + //
-                                        "LEFT JOIN \n" + //
-                                        "    Expenses e ON b.id = e.budget_id\n" + //
-                                        "LEFT JOIN \n" + //
-                                        "    ObligatoryPayments o ON b.id = o.budget_id\n" + //
-                                        "LEFT JOIN \n" + //
-                                        "    Savings s ON b.id = s.budget_id\n" + //
-                                        "GROUP BY \n" + //
-                                        "    b.id, b.period, b.amount;\n" + //
-                                        "";
+                String query = """
+                WITH TotalExpenses AS (
+                    SELECT 
+                        b.period,
+                        SUM(e.amount) AS total_expenses
+                    FROM 
+                        dbo.Budget b
+                    LEFT JOIN 
+                        dbo.Expenses e ON b.id = e.budget_id
+                    GROUP BY 
+                        b.period
+                ),
+                TotalObligatoryPayments AS (
+                    SELECT 
+                        b.period,
+                        SUM(op.amount) AS total_obligatory_payments
+                    FROM 
+                        dbo.Budget b
+                    LEFT JOIN 
+                        dbo.ObligatoryPayments op ON b.id = op.budget_id
+                    GROUP BY 
+                        b.period
+                ),
+                
+                TotalSavings AS (
+                    SELECT 
+                        b.period,
+                        SUM(s.amount) AS total_savings
+                    FROM 
+                        dbo.Budget b
+                    LEFT JOIN 
+                        dbo.Savings s ON b.id = s.budget_id
+                    GROUP BY 
+                        b.period
+                )
+                SELECT 
+                    b.period,
+                    b.amount AS budget_amount,
+                    COALESCE(te.total_expenses, 0) AS total_expenses,
+                    COALESCE(topay.total_obligatory_payments, 0) AS total_obligatory_payments,
+                    COALESCE(ts.total_savings, 0) AS total_savings,
+                    (b.amount - COALESCE(te.total_expenses, 0) - COALESCE(topay.total_obligatory_payments, 0) - COALESCE(ts.total_savings, 0)) AS remaining_amount
+                FROM 
+                    dbo.Budget b
+                LEFT JOIN 
+                    TotalExpenses te ON b.period = te.period
+                LEFT JOIN 
+                    TotalObligatoryPayments topay ON b.period = topay.period
+                LEFT JOIN 
+                    TotalSavings ts ON b.period = ts.period;
+                """;
                 PreparedStatement pstmt = con.prepareStatement(query);
                 ResultSet rs = pstmt.executeQuery();
                 KakeboClass saving = null ;

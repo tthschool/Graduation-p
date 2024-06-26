@@ -62,3 +62,27 @@ LEFT JOIN
     Saving sa ON b.budget_id = sa.budget_id
 GROUP BY 
     b.month, b.amount;
+
+
+
+-- Thêm cột budget_id vào bảng Expenses
+ALTER TABLE Expenses ADD COLUMN budget_id INT;
+
+-- Thêm khóa ngoại vào bảng Expenses
+ALTER TABLE Expenses 
+ADD CONSTRAINT fk_expenses_budget 
+FOREIGN KEY (budget_id) REFERENCES Budget(id);
+
+-- Thêm cột budget_id vào bảng ObligatoryPayments
+ALTER TABLE ObligatoryPayments ADD COLUMN budget_id INT;
+
+-- Thêm khóa ngoại vào bảng ObligatoryPayments
+ALTER TABLE ObligatoryPayments 
+ADD CONSTRAINT fk_obligatorypayments_budget 
+FOREIGN KEY (budget_id) REFERENCES Budget(id);
+
+-- Thêm khóa ngoại vào bảng Savings
+ALTER TABLE Savings 
+ADD CONSTRAINT fk_savings_budget 
+FOREIGN KEY (budget_id) REFERENCES Budget(id);
+
