@@ -52,6 +52,7 @@ export const GetNews = async (country) => {
   );
   return response;
 };
+
 export const GetMyProfit = async () => {
   const mystocks_aw = await axios.post("http://localhost:8000/GetStock");
   const mystocks = mystocks_aw.data;
@@ -73,3 +74,4 @@ export const remaining_amount = async (body) => {
   );
   return response;
 };
+

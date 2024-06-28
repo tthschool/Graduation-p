@@ -13,7 +13,7 @@ import {
   AddSaving,
   GetNews,
   GetMyProfit,
-  remaining_amount
+  remaining_amount,
 } from "./FunctionCall.js";
 config();
 const tools_list = [
@@ -27,7 +27,7 @@ const tools_list = [
   AddSaving,
   GetNews,
   GetMyProfit,
-  remaining_amount
+  remaining_amount,
 ];
 const tools_listsub = [
   "getSaving",
@@ -40,11 +40,11 @@ const tools_listsub = [
   "AddSaving",
   "GetNews",
   "GetMyProfit",
-  "remaining_amount"
+  "remaining_amount",
 ];
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const openai = new OpenAI({ apiKey: `${OPENAI_KEY}` });
-export async function callOpenAIwithTools(text) {
+export async function callTotoro(text) {
   const context = [
     {
       role: "system",
@@ -69,13 +69,11 @@ export async function callOpenAIwithTools(text) {
       const toolName = toolCall.function.name;
       console.log(toolName);
       const body = toolCall.function.arguments;
-      console.log(body);
       let toolResponse = null;
       let indexoffuntion = null;
       let Response = null;
       indexoffuntion = tools_listsub.indexOf(toolName);
       Response = await tools_list[indexoffuntion](body);
-      console.log(Response);
       toolResponse = (JSON.stringify(Response.data));
       context.push({
         role: "tool",
@@ -88,11 +86,10 @@ export async function callOpenAIwithTools(text) {
       model: "gpt-4o",
       messages: context,
     });
-    console.log(secondResponse.choices[0].message.content);
     return secondResponse.choices[0].message.content;
   } 
   else {
-    return "something wrong , try again "
+    return "your meal will ready in 2000 years . please wait <3 "
   }
 }
 

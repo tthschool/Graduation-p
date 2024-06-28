@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import path, { join } from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import { callOpenAIwithTools } from './OpenAi.js';
+import { callTotoro } from './OpenAi.js';
 import { marked } from 'marked';
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
@@ -42,10 +42,10 @@ const server = http.createServer(async (req, res) => {
       req.on ('end' , async ()=>{
         body = JSON.parse(body)
         console.log(body.query)
-        const response = await  callOpenAIwithTools(body.query)
+        const response = await  callTotoro(body.query)
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        // const markedres = marked(response)
-        res.end( response);
+        const markedres = marked(response)
+        res.end( markedres);
       })
     } 
 
